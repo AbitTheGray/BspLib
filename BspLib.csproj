@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1458F67D-66C1-4A93-B5FF-79D3EE054D5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BspLib</RootNamespace>
+    <AssemblyName>BspLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\Bsp\BspFile.cs" />
+    <Compile Include="Src\Bsp\Exceptions\BspException.cs" />
+    <Compile Include="Src\Bsp\Exceptions\BspVersionNotSupportedException.cs" />
+    <Compile Include="Src\Bsp\GoldSource\Bsp.cs" />
+    <Compile Include="Src\Wad\Texture.cs" />
+    <Compile Include="Src\Wad\TextureByteIndexPalette.cs" />
+    <Compile Include="Src\Bsp\GoldSource\Lumps.cs" />
+    <Compile Include="Src\Wad\TextureWithMipmaps.cs" />
+    <Compile Include="Src\Wad\TextureByteIndexPaletteWithMipmaps.cs" />
+    <Compile Include="Src\Wad\WadFile.cs" />
+    <Compile Include="Src\Wad\Wad3\Wad.cs" />
+    <Compile Include="Src\Wad\Exceptions\WadException.cs" />
+    <Compile Include="Src\Wad\Exceptions\WadVersionNotSupportedException.cs" />
+    <Compile Include="Src\Wad\Wad2\Wad.cs" />
+    <Compile Include="Src\Wad\Wad3\TextureLumpInfo.cs" />
+    <Compile Include="Src\OpenGL\OpenGLArrayBuffer.cs" />
+    <Compile Include="Src\OpenGL\BspOpenGL.cs" />
+    <Compile Include="Src\OpenGL\OpenGLIndicesBufferWithTextureName.cs" />
+    <Compile Include="Src\OpenGL\OpenGLIndicesBufferWithTextureId.cs" />
+    <Compile Include="Src\Bsp\GoldSource\Lump.cs" />
+    <Compile Include="Src\Vector\Vector2.cs" />
+    <Compile Include="Src\Vector\Vector2d.cs" />
+    <Compile Include="Src\Vector\Vector2f.cs" />
+    <Compile Include="Src\Vector\Vector3.cs" />
+    <Compile Include="Src\Vector\Vector3d.cs" />
+    <Compile Include="Src\Vector\Vector3f.cs" />
+    <Compile Include="Src\Vector\Vector4.cs" />
+    <Compile Include="Src\Vector\Vector4d.cs" />
+    <Compile Include="Src\Vector\Vector4f.cs" />
+    <Compile Include="Src\Colliders\Collider.cs" />
+    <Compile Include="Src\Colliders\AABB.cs" />
+    <Compile Include="Src\Colliders\Sphere.cs" />
+    <Compile Include="Src\Colliders\MeshCollider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Src\" />
+    <Folder Include="Src\Bsp\" />
+    <Folder Include="Src\Bsp\GoldSource\" />
+    <Folder Include="Src\Bsp\Exceptions\" />
+    <Folder Include="Src\Wad\" />
+    <Folder Include="Src\Wad\Wad3\" />
+    <Folder Include="Src\Wad\Wad2\" />
+    <Folder Include="Src\Bsp\VBSP\" />
+    <Folder Include="Src\Bsp\rBSP\" />
+    <Folder Include="Src\Wad\Exceptions\" />
+    <Folder Include="Src\OpenGL\" />
+    <Folder Include="Src\Colliders\" />
+    <Folder Include="Src\Mdl\" />
+    <Folder Include="Src\Mdl\GoldSource\" />
+    <Folder Include="Src\Mdl\Source\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
