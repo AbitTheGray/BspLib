@@ -85,5 +85,9 @@
     <Folder Include="Src\Mdl\GoldSource\" />
     <Folder Include="Src\Mdl\Source\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="LICENSE.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
