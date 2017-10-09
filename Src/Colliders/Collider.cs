@@ -4,12 +4,13 @@ using BspLib.Vector;
 
 namespace BspLib.Colliders
 {
-    public class Collider
+    public abstract class Collider
     {
-        public Collider()
-        {
-        }
-
+        /// <summary>
+        /// Checks if are 2 colliders in collision.
+        /// </summary>
+        /// <param name="col0">1st collider.</param>
+        /// <param name="col1">2nd collider.</param>
         public static bool InCollision(Collider col0, Collider col1)
         {
             if (col0 is Sphere && col1 is Sphere)

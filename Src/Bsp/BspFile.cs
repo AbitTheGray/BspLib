@@ -10,6 +10,10 @@ using BspLib.Colliders;
 
 namespace BspLib.Bsp
 {
+    /// <summary>
+    /// This is special class to store all possible data.
+    /// Create new instance and then use its functions to fill it with data.
+    /// </summary>
     public class BspFile
     {
         public BspFile()
@@ -41,16 +45,27 @@ namespace BspLib.Bsp
 
         #region Textures
 
+        /// <summary>
+        /// Textures packet in the map.
+        /// May not be supported by mosy formats.
+        /// </summary>
         public List<Texture> PackedTextures
         {
             get;
         } = new List<Texture>();
 
+        /// <summary>
+        /// Names of textured used in the map.
+        /// </summary>
         public List<string> UsedTextures
         {
             get;
         } = new List<string>();
 
+        /// <summary>
+        /// Dimensions of textures.
+        /// Should be availible for all textures (packed or not).
+        /// </summary>
         public Dictionary<string, Vector2> TextureDimensions
         {
             get;
@@ -58,16 +73,28 @@ namespace BspLib.Bsp
 
         #endregion
 
+        /// <summary>
+        /// List of data from all entities.
+        /// Each entity is represented by Dictionary (Key,Value pair)
+        /// </summary>
         public List<Dictionary<string, string>> Entities
         {
             get;
         } = new List<Dictionary<string, string>>();
 
+        /// <summary>
+        /// Models are parts of map.
+        /// First (index 0) is for static part of map, rest should be used by entities.
+        /// </summary>
         public List<Model> Models
         {
             get;
         } = new List<Model>();
 
+        /// <summary>
+        /// Colliders are simplified version (less faces) of Models.
+        /// </summary>
+        //FIXME Connecting colliders to Models
         public List<Collider> Colliders
         {
             get;
@@ -75,6 +102,9 @@ namespace BspLib.Bsp
 
         #endregion
 
+        /// <summary>
+        /// Utility flags for loading multiple parts using single function.
+        /// </summary>
         [Flags]
         public enum LoadFlags
         {
@@ -87,7 +117,7 @@ namespace BspLib.Bsp
             PackedTextures = 1 << 3,
         }
 
-        public const LoadFlags AllLoadFlags = (LoadFlags)int.MaxValue;//0b111111...
+        public const LoadFlags AllLoadFlags = (LoadFlags)int.MaxValue;//0b011111...
 
         #region Temporary classes
 
@@ -137,6 +167,12 @@ namespace BspLib.Bsp
 
         public class Model
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="T:BspLib.Bsp.BspFile.Model"/> class.
+            /// </summary>
+            /// <param name="triangles">Triangles grouped by texture. &lt;TextureName, indices&gt;</param>
+            /// <param name="positions">3D position in world.</param>
+            /// <param name="textureCoordinates">UV coordinates.</param>
             public Model(Dictionary<string, uint[]> triangles, Vector3f[] positions, Vector2f[] textureCoordinates)
             {
                 this.Triangles = triangles;
@@ -150,7 +186,7 @@ namespace BspLib.Bsp
 
             /// <summary>
             /// Key = texture name,
-            /// Value = polygons
+            /// Value = indices to Positions and TextureCoordinates
             /// </summary>
             /// <value>The polygons.</value>
             public Dictionary<string, uint[]> Triangles
@@ -268,8 +304,25 @@ namespace BspLib.Bsp
 
         #endregion
 
+        /// <summary>
+        /// Saves the visuals as .OBJ file and also export materials to .MTL file.
+        /// </summary>
+        /// <param name="objPath">Path where to save the OBJ file. MTL file will be saved with same name and ".mtl" extension.</param>
+        /// <param name="textureDirectory">Directory where are saved textures.</param>
+        /// <param name="saveTextures">If set to <c>true</c>, textures will be save to selected directory.</param>
+        /// <param name="replaceTextureNames">If set to <c>true</c>, texture names will be fixed for most filesystems.</param>
+        /// <param name="textureExtension">Extension of textures. Default value is recommended.</param>
         public void SaveVisualsAsObjAndExportMtlFile(string objPath, string textureDirectory = "textures", bool saveTextures = true, bool replaceTextureNames = false, string textureExtension = "png") => SaveVisualsAsObjAndExportMtlFile(objPath, string.Format("{0}.mtl", Path.GetFileNameWithoutExtension(objPath)), textureDirectory, saveTextures, replaceTextureNames, textureExtension);
 
+        /// <summary>
+        /// Saves the visuals as .OBJ file and also export materials to .MTL file.
+        /// </summary>
+        /// <param name="objPath">Path where to save the OBJ file.</param>
+        /// <param name="mtlPath">Path where to save the MTL file.</param>
+        /// <param name="textureDirectory">Directory where are saved textures.</param>
+        /// <param name="saveTextures">If set to <c>true</c>, textures will be save to selected directory.</param>
+        /// <param name="replaceTextureNames">If set to <c>true</c>, texture names will be fixed for most filesystems.</param>
+        /// <param name="textureExtension">Extension of textures. Default value is recommended.</param>
         public void SaveVisualsAsObjAndExportMtlFile(string objPath, string mtlPath, string textureDirectory = "textures", bool saveTextures = true, bool replaceTextureNames = false, string textureExtension = "png")
         {
             var nameDictionary = new Dictionary<string, string>();
@@ -314,6 +367,13 @@ namespace BspLib.Bsp
             }
         }
 
+        /// <summary>
+        /// Save MTL File
+        /// </summary>
+        /// <param name="writer">Stream Writer to write into.</param>
+        /// <param name="directory">Directory where are saved textures.</param>
+        /// <param name="nameDictionary">Dictionary for replacing names of textures.</param>
+        /// <param name="textureExtension">Extension of textures. Default value is recommended.</param>
         public void SaveMtlFile(StreamWriter writer, string directory = "textures", Dictionary<string, string> nameDictionary = null, string textureExtension = "png")
         {
             var extension = "." + textureExtension;
